@@ -15,7 +15,7 @@ export class App extends Component {
   };
 
   handleFeedback = type => {
-    this.setStatr(prevState => ({
+    this.setState(prevState => ({
       [type]: prevState[type] + 1,
     }));
   };
@@ -25,15 +25,16 @@ export class App extends Component {
     return good + neutral + bad;
   };
 
-  conuntPositiveFeedbackPercentage = () => {
+  countPositiveFeedbackPercentage = () => {
     const { good } = this.state;
     const total = this.countTotalFeedback();
     return total > 0 ? Math.round((good / total) * 100) : 0;
   };
+
   render() {
     const { good, neutral, bad } = this.state;
     const totalFeedback = this.countTotalFeedback();
-    const positiveFeedbackPercentage = this.conuntPositiveFeedbackPercentage();
+    const positiveFeedbackPercentage = this.countPositiveFeedbackPercentage();
 
     return (
       <div className={css.container}>
@@ -49,6 +50,7 @@ export class App extends Component {
             <Statistics
               good={good}
               neutral={neutral}
+              bad={bad}
               total={totalFeedback}
               positivePercentage={positiveFeedbackPercentage}
             />
